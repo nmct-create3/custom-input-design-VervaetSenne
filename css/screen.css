@@ -67,7 +67,25 @@
     /*  = 48px */
     --global-whitespace-xxl: calc(var(--global-whitespace) * 3);
     /*  = 72px */
+
+    /* light mode variables */
+    --global-color-background: var(--global-color-neutral-050);
+    --global-color-text: var(--global-color-neutral-950);
+    --global-color-card: var(--global-color-neutral-050);
+    --global-color-tagtext: var(--global-color-neutral-300);
+
+
+    /* dark mode variables */
+    @media (prefers-color-scheme: dark) {
+        --global-color-background: var(--global-color-neutral-950);
+        --global-color-text: var(--global-color-neutral-050);
+        --global-color-inputfield: var(--global-color-neutral-950);
+        --global-color-card: var(--global-color-neutral-900);
+        --global-color-tagtext: var(--global-color-neutral-300);
+    }
 }
+
+
 
 /*---------------------------------------/*
  # GENERIC
@@ -100,8 +118,8 @@ img {
 html {
     line-height: 1.5;
     font-family: "Inter Web", Helvetica, arial, sans-serif;
-    color: var(--global-color-neutral-950);
-    background-color: var(--global-color-neutral-050);
+    color: var(--global-color-text);
+    background-color: var(--global-color-background);
     box-sizing: border-box;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -430,6 +448,7 @@ input::placeholder {
 
     /* Corrects inability to style clickable `input` types in iOS */
     -webkit-appearance: none;
+    appearance: none;
 }
 
 /*
@@ -490,7 +509,7 @@ input::placeholder {
 */
 
 .c-card {
-    background-color: White;
+    background-color: var(--global-color-card);
     margin-bottom: var(--global-whitespace);
     border-radius: var(--global-borderRadius);
     box-shadow: 0 0 0 var(--global-borderWidth) rgba(0, 0, 0, 0.05), 0 2px 4px rgba(0, 0, 0, .075);
@@ -534,15 +553,29 @@ input::placeholder {
     }
 }
 
+/* @media (prefers-color-scheme: dark) {
+    body{
+        background-color: var(--global-color-neutral-950);
+    }
+    
+} */
+
 /*
     Component: Forms
     ---
     Everything form related here
 */
 
+.c-label {
+    display: flex;
+    margin: 8px 8px 8px;
+    color: var(--global-color-tagtext);
+}
+
 .c-form-field--option {
     display: flex;
     align-items: center;
+    color: var(--global-color-tagtext);
 }
 
 /*
@@ -558,8 +591,8 @@ input::placeholder {
     width: 100%;
     border: var(--global-borderWidth) solid var(--global-color-neutral-100);
     border-radius: var(--global-borderRadius);
-    color: var(--global-color-neutral-950);
-    background-color: White;
+    color: var(--global-color-text);
+    background-color: var(--global-color-inputfield);
     font-family: inherit;
     font-size: 1rem;
     line-height: calc(var(--global-baseline) * 3);
@@ -584,6 +617,109 @@ input::placeholder {
     margin-right: var(--global-whitespace-sm);
 }
 
+
+.c-option--hidden:checked + .c-custom-option .c-custom-option__symbol {
+    /*
+      Do magic stuff here, for example:
+      fill: blue;
+    */
+    fill: var(--global-color-primary-500);
+    display: block;
+    transform: scale(1);
+}
+
+.c-custom-option__fake-input:hover{
+    box-shadow: 0 0 0px 2px var(--global-color-primary-500-alpha-30);
+    border-color: var(--global-color-primary-500);
+}
+
+.c-custom-option__fake-input:focus{
+    box-shadow: 0 0 0px 2px var(--global-color-primary-500-alpha-30);
+    border-color: var(--global-color-primary-500);
+}
+
+.c-custom-option__fake-input{
+    display: flex;
+    width: 1rem;
+    height: 1rem;
+    border: 1px solid var(--global-color-neutral-500);
+    border-radius: var(--global-borderRadius);
+    margin-right: var(--global-whitespace-sm);
+    align-items: center;
+    justify-content: center; 
+}
+
+
+.c-custom-option__fake-input--checkbox{
+    border-radius: var(--global-borderRadius);
+    margin-right: var(--global-whitespace-sm);
+    align-items: center;
+    justify-content: center; 
+}
+
+.c-custom-option__fake-input--radio{
+    border-radius: 50%;
+    margin-right: var(--global-whitespace-sm);
+    align-items: center;
+    justify-content: center;
+}
+
+.c-custom-toggle__fake-input {
+    display: flex;
+    width: 2.5rem;
+    height: 1.5rem;
+    border: 1px solid var(--global-color-neutral-500);
+    border-radius: 2rem;
+    margin-right: var(--global-whitespace-sm);
+    align-items: center;
+    justify-content: center;
+    background-color: var(--global-color-inputfield);
+}
+
+.c-option--hidden:checked + .c-custom-toggle .c-custom-toggle__fake-input{
+    display: flex;
+    width: 2.5rem;
+    height: 1.5rem;
+    border: 1px solid var(--global-color-neutral-500);
+    border-radius: 2rem;
+    margin-right: var(--global-whitespace-sm);
+    align-items: center;
+    justify-content: center;
+    background-color: var(--global-color-primary-400);
+    
+}
+
+.c-option:active + .c-custom-toggle__fake-input{
+    
+}
+
+.c-custom-option__symbol {
+    display: none;
+    width: 80%;
+    height: 80%;
+    fill: var(--global-color-primary-500);
+    aspect-ratio: 1/1;
+    .c-custom-option__fake-input--radio & {
+        width: 7px;
+        height: 7px;
+        background-color: var(--global-color-primary-500);
+        border-radius: 100%;
+        justify-content: center;
+        align-content: center;
+    }
+}
+
+
+
+
+/* .c-option--hidden:checked .c-custom-option .c-custom-option__fake-input--radio .c-custom-option__symbol {
+    background-color: blue;
+    height: 7px;
+    width: 7px;
+
+} */
+
+
 /*
     Component: Label
     ---
@@ -595,7 +731,7 @@ input::placeholder {
     font-size: .875rem;
     padding-bottom: var(--global-whitespace-xs);
     line-height: calc(var(--global-baseline) * 2);
-    color: var(--global-color-neutral-800);
+    color: var(--global-color-tagtext);
 }
 
 .c-label--option {
