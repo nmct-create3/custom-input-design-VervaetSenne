@@ -626,7 +626,7 @@ input::placeholder {
     fill: var(--global-color-primary-500);
     display: block;
     transform: scale(1);
-}
+}   
 
 .c-custom-option__fake-input:hover{
     box-shadow: 0 0 0px 2px var(--global-color-primary-500-alpha-30);
